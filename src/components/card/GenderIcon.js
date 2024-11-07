@@ -8,7 +8,7 @@ export function GenderIcon({ gender }) {
       return <Male width={20} height={20} fill="#33b3c8" title="Male" />;
     case 'Female':
       return <Female width={24} height={24} fill="pink" title="Female" />;
-    case 'unknown':
+    case 'Genderless':
       return (
         <Genderless width={24} height={24} fill="#999" title="Genderless" />
       );
