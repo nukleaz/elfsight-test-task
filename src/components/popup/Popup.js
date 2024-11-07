@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import styled from 'styled-components';
 import { PopupEpisodes } from './PopupEpisodes';
 import { PopupHeader } from './PopupHeader';
@@ -21,14 +22,36 @@ export function Popup({ settings: { visible, content = {} }, setSettings }) {
       return;
     }
 
+    // Можно было бы вынести код ниже в отдельную фукнцию, так как он по сути дублируется в useEffect'е, но тогда, чтобы реакт не ругался, пришлось бы обернуть функцию в useCallback, я посчитал это излишним в данной ситуации.
+
     setSettings((prevState) => ({
       ...prevState,
       visible: !prevState.visible
     }));
   }
 
+  useEffect(() => {
+    document.body.style.overflow = visible ? 'hidden' : 'auto';
+  }, [visible]);
+
+  useEffect(() => {
+    function handleEscBtn(e) {
+      if (e.key === 'Escape' && visible) {
+        setSettings((prevState) => ({
+          ...prevState,
+          visible: !prevState.visible
+        }));
+      }
+    }
+    document.addEventListener('keydown', handleEscBtn);
+
+    return function () {
+      document.removeEventListener('keydown', handleEscBtn);
+    };
+  }, [visible, setSettings]);
+
   return (
-    <PopupContainer visible={visible}>
+    <PopupContainer visible={visible} onClick={togglePopup}>
       <StyledPopup>
         <CloseIcon onClick={togglePopup} />
 
@@ -69,7 +92,7 @@ const PopupContainer = styled.div`
       opacity: 1;
       visibility: initial;
       pointer-events: all;
-    `}
+    `};
 `;
 
 const StyledPopup = styled.div`
