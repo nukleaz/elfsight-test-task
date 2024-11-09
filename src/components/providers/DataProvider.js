@@ -25,14 +25,17 @@ export function DataProvider({ children }) {
     axios
       .get(url)
       .then(({ data }) => {
-        setIsFetching(false);
+        // setIsFetching(false);
         setCharacters(data.results);
         setInfo(data.info);
       })
       .catch((e) => {
-        setIsFetching(false);
+        // setIsFetching(false);
         setIsError(true);
         console.error(e);
+      })
+      .finally(() => {
+        setIsFetching(false);
       });
   };
 
