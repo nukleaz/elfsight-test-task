@@ -10,6 +10,13 @@ export function DataProvider({ children }) {
   const [isError, setIsError] = useState(false);
   const [info, setInfo] = useState({});
   const [apiURL, setApiURL] = useState(API_URL);
+  const [filters, setFilters] = useState({
+    name: '',
+    status: '',
+    species: '',
+    type: '',
+    gender: ''
+  });
 
   const fetchData = async (url) => {
     setIsFetching(true);
@@ -30,8 +37,20 @@ export function DataProvider({ children }) {
   };
 
   useEffect(() => {
-    fetchData(apiURL);
-  }, [apiURL]);
+    function buildApiUrl() {
+      const params = new URLSearchParams();
+      params.append('page', activePage + 1);
+      Object.entries(filters).forEach(([key, value]) => {
+        if (value) {
+          params.append(key, value);
+        }
+      });
+      return `${API_URL}?${params.toString()}`;
+    }
+
+    const url = buildApiUrl();
+    fetchData(url);
+  }, [filters, activePage]);
 
   const dataValue = useMemo(
     () => ({
@@ -42,9 +61,11 @@ export function DataProvider({ children }) {
       characters,
       isFetching,
       isError,
-      info
+      info,
+      filters,
+      setFilters
     }),
-    [activePage, apiURL, characters, isFetching, isError, info]
+    [activePage, apiURL, characters, isFetching, isError, info, filters]
   );
 
   return (

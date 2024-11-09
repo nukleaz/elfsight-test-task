@@ -1,14 +1,33 @@
 import styled from 'styled-components';
-import { DropdownList } from './DropdownList';
-import { InputField } from './InputField';
+import { useData } from '../providers';
+import { FilterField } from './InputField';
 
 export function FilterContainer() {
+  const { setFilters, setActivePage } = useData();
+
+  function handleFilterChange(name, value) {
+    setFilters((prev) => ({ ...prev, [name]: value }));
+    setActivePage(0);
+  }
+
   return (
     <StyledContainer>
-      <InputField id="name" placeholder="Name" />
-      <InputField id="species" placeholder="Species" />
-      <InputField id="type" placeholder="Type" />
-      <DropdownList
+      <FilterField
+        id="name"
+        placeholder="Name"
+        onChange={(e) => handleFilterChange('name', e.target.value)}
+      />
+      <FilterField
+        id="species"
+        placeholder="Species"
+        onChange={(e) => handleFilterChange('species', e.target.value)}
+      />
+      <FilterField
+        id="type"
+        placeholder="Type"
+        onChange={(e) => handleFilterChange('type', e.target.value)}
+      />
+      <FilterField
         defaultValue="Status"
         options={[
           { value: '', label: 'Select Status' },
@@ -16,8 +35,9 @@ export function FilterContainer() {
           { value: 'Dead', label: 'Dead' },
           { value: 'unknown', label: 'unknown' }
         ]}
+        onChange={(e) => handleFilterChange('status', e.target.value)}
       />
-      <DropdownList
+      <FilterField
         defaultValue="Gender"
         options={[
           { value: '', label: 'Select Gender' },
@@ -26,6 +46,7 @@ export function FilterContainer() {
           { value: 'Genderless', label: 'Genderless' },
           { value: 'unknown', label: 'unknown' }
         ]}
+        onChange={(e) => handleFilterChange('gender', e.target.value)}
       />
     </StyledContainer>
   );
