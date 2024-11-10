@@ -19,7 +19,6 @@ export function Pagination() {
 
       return URLWithPage;
     });
-
     setPages(createdPages);
   }, [apiURL, info]);
 
