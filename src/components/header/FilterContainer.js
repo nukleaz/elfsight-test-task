@@ -3,11 +3,13 @@ import { useData } from '../providers';
 import { FilterField } from './FilterField';
 
 export const FilterContainer = () => {
-  const { onFilterChange } = useData();
+  const { onFilterChange, filters } = useData();
 
   const handleFilterChange = (value, name) => {
     onFilterChange(value, name);
   };
+
+  console.log(filters);
 
   return (
     <StyledContainer>
@@ -15,34 +17,37 @@ export const FilterContainer = () => {
         id="name"
         placeholder="Name"
         onChange={(e) => handleFilterChange('name', e.target.value)}
+        value={filters.name}
       />
       <FilterField
         id="species"
         placeholder="Species"
         onChange={(e) => handleFilterChange('species', e.target.value)}
+        value={filters.species}
       />
       <FilterField
         id="type"
         placeholder="Type"
         onChange={(e) => handleFilterChange('type', e.target.value)}
+        value={filters.type}
       />
       <FilterField
-        defaultValue="Status"
+        value={filters.status}
         options={[
           { value: '', label: 'Select Status' },
-          { value: 'Alive', label: 'Alive' },
-          { value: 'Dead', label: 'Dead' },
+          { value: 'alive', label: 'Alive' },
+          { value: 'dead', label: 'Dead' },
           { value: 'unknown', label: 'unknown' }
         ]}
         onChange={(e) => handleFilterChange('status', e.target.value)}
       />
       <FilterField
-        defaultValue="Gender"
+        value={filters.gender}
         options={[
           { value: '', label: 'Select Gender' },
-          { value: 'Female', label: 'Female' },
-          { value: 'Male', label: 'Male' },
-          { value: 'Genderless', label: 'Genderless' },
+          { value: 'female', label: 'Female' },
+          { value: 'male', label: 'Male' },
+          { value: 'genderless', label: 'Genderless' },
           { value: 'unknown', label: 'unknown' }
         ]}
         onChange={(e) => handleFilterChange('gender', e.target.value)}

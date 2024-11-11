@@ -5,14 +5,14 @@ export const FilterField = ({
   label,
   placeholder,
   onChange,
-  defaultValue,
-  options = []
+  options = [],
+  value = ''
 }) => {
   return (
     <>
       <StyledLabel htmlFor={id} aria-label={label} />
       {options.length > 0 ? (
-        <StyledSelect id={id} defaultValue={defaultValue} onChange={onChange}>
+        <StyledSelect id={id} value={value} onChange={onChange}>
           {options.map((option, index) => (
             <option key={index} value={option.value}>
               {option.label}
@@ -20,7 +20,12 @@ export const FilterField = ({
           ))}
         </StyledSelect>
       ) : (
-        <StyledInput id={id} placeholder={placeholder} onChange={onChange} />
+        <StyledInput
+          value={value}
+          id={id}
+          placeholder={placeholder}
+          onChange={onChange}
+        />
       )}
     </>
   );
