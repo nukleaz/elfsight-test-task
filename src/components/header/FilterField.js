@@ -11,10 +11,15 @@ export const FilterField = ({
   const customStyles = {
     control: (provided) => ({
       ...provided,
+      minWidth: '100px',
       borderRadius: '10px',
       backgroundColor: 'rgb(81, 225, 124)',
       border: 'none',
       boxShadow: '0px 0px 12px rgba(81, 150, 220, 0.8)'
+    }),
+    selectMenu: (provided) => ({
+      ...provided,
+      backgroundColor: 'red'
     }),
     option: (provided, state) => ({
       ...provided,
