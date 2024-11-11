@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
-export function CardInfo({ children }) {
+export const CardInfo = ({ children }) => {
   return <StyledCardInfo>{children}</StyledCardInfo>;
-}
+};
 
 const StyledCardInfo = styled.div`
   display: flex;

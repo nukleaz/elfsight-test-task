@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export function CardStatus({ status, species, type, className }) {
+export const CardStatus = ({ status, species, type, className }) => {
   return (
     <CardStatusContainer className={className}>
       <StyledCardStatus status={status}>{status}</StyledCardStatus>
@@ -9,7 +9,7 @@ export function CardStatus({ status, species, type, className }) {
       {type && <CardType>{type}</CardType>}
     </CardStatusContainer>
   );
-}
+};
 
 const CardStatusContainer = styled.div`
   display: flex;

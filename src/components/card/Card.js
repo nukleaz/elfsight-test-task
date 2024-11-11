@@ -3,7 +3,7 @@ import { CardInfo } from './CardInfo';
 import { CardStatus } from './CardStatus';
 import { CardTitle } from './CardTitle';
 
-export function Card({
+export const Card = ({
   status,
   name,
   species,
@@ -11,7 +11,7 @@ export function Card({
   gender,
   image,
   onClickHandler
-}) {
+}) => {
   return (
     <StyledCard onClick={onClickHandler}>
       <CardImg src={image} alt={name} />
@@ -22,7 +22,7 @@ export function Card({
       </CardInfo>
     </StyledCard>
   );
-}
+};
 
 const StyledCard = styled.div`
   display: flex;
