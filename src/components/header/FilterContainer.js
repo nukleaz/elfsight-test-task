@@ -2,13 +2,12 @@ import styled from 'styled-components';
 import { useData } from '../providers';
 import { FilterField } from './FilterField';
 
-export function FilterContainer() {
-  const { setActivePage, onFilterChange } = useData();
+export const FilterContainer = () => {
+  const { onFilterChange } = useData();
 
-  function handleFilterChange(value, name) {
+  const handleFilterChange = (value, name) => {
     onFilterChange(value, name);
-    setActivePage(0);
-  }
+  };
 
   return (
     <StyledContainer>
@@ -50,7 +49,7 @@ export function FilterContainer() {
       />
     </StyledContainer>
   );
-}
+};
 
 const StyledContainer = styled.div`
   display: flex;

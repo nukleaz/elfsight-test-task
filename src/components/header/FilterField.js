@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 
-export function FilterField({
+export const FilterField = ({
   id,
   label,
   placeholder,
   onChange,
   defaultValue,
   options = []
-}) {
+}) => {
   return (
     <>
       <StyledLabel htmlFor={id} aria-label={label} />
@@ -24,7 +24,7 @@ export function FilterField({
       )}
     </>
   );
-}
+};
 
 const StyledLabel = styled.label``;
 
