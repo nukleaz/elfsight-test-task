@@ -2,14 +2,14 @@ import styled from 'styled-components';
 import { FilterContainer } from './FilterContainer';
 import { Logo } from './Logo';
 
-export function Header() {
+export const Header = () => {
   return (
     <HeaderContainer>
       <Logo />
       <FilterContainer />
     </HeaderContainer>
   );
-}
+};
 
 const HeaderContainer = styled.div`
   width: 100%;

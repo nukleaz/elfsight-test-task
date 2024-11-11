@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
-export function Text({
+export const Text = ({
   className,
   children,
   style,
   color = '#ccc',
   fontSize = '16px'
-}) {
+}) => {
   return (
     <StyledText
       className={className}
@@ -17,7 +17,7 @@ export function Text({
       {children}
     </StyledText>
   );
-}
+};
 
 const StyledText = styled.span`
   color: ${({ _color }) => _color};
