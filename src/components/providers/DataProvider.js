@@ -19,7 +19,6 @@ export const DataProvider = ({ children }) => {
   const [info, setInfo] = useState({});
   const [apiURL, setApiURL] = useState(API_URL);
   const [filters, setFilters] = useState({});
-
   const [queryParams, updateQueryParams] = useQueryParams();
 
   const fetchData = (url) => {
@@ -86,7 +85,7 @@ export const DataProvider = ({ children }) => {
           ...prevFilters,
           [name]: value
         };
-        updateQueryParams(newFilters);
+        updateQueryParams({ ...newFilters, page: 1 });
         return newFilters;
       });
     },
@@ -96,7 +95,7 @@ export const DataProvider = ({ children }) => {
   const onPageChange = useCallback(
     (newPage) => {
       setActivePage(newPage);
-      updateQueryParams({ page: newPage + 1 });
+      updateQueryParams({ ...queryParams, page: newPage + 1 });
     },
     [updateQueryParams]
   );
