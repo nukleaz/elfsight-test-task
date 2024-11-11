@@ -90,6 +90,14 @@ const Episode = styled.p`
   display: grid;
   align-items: center;
   padding: 10px 0;
+
+  @media (max-width: 600px) {
+    font-size: 14px;
+  }
+
+  @media (max-width: 400px) {
+    font-size: 12px;
+  }
 `;
 
 const EpisodeMarking = styled.span`
