@@ -4,11 +4,11 @@ import { useData } from './providers';
 
 export function Pagination() {
   const [pages, setPages] = useState([]);
-  const { apiURL, info, activePage, setActivePage } = useData();
+  const { apiURL, info, activePage, onPageChange } = useData();
 
   const pageClickHandler = (index) => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    setActivePage(index);
+    onPageChange(index);
   };
 
   useEffect(() => {
@@ -19,8 +19,9 @@ export function Pagination() {
 
       return URLWithPage;
     });
+
     setPages(createdPages);
-  }, [apiURL, info]);
+  }, [apiURL, info.pages]);
 
   if (pages.length <= 1) return null;
 

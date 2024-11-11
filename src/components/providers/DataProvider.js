@@ -7,26 +7,22 @@ import {
   useMemo,
   useState
 } from 'react';
+import { useQueryParams } from './useQueryParams';
 
 const API_URL = 'https://rickandmortyapi.com/api/character/';
 
-export function DataProvider({ children }) {
+export const DataProvider = ({ children }) => {
   const [activePage, setActivePage] = useState(0);
   const [characters, setCharacters] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
   const [isError, setIsError] = useState(false);
   const [info, setInfo] = useState({});
   const [apiURL, setApiURL] = useState(API_URL);
-  const [isFirstRender, setIsFirstRender] = useState(true);
-  const [filters, setFilters] = useState({
-    name: '',
-    status: '',
-    species: '',
-    type: '',
-    gender: ''
-  });
+  const [filters, setFilters] = useState({});
 
-  const fetchData = async (url) => {
+  const [queryParams, updateQueryParams] = useQueryParams();
+
+  const fetchData = (url) => {
     setIsFetching(true);
     setIsError(false);
 
@@ -48,7 +44,6 @@ export function DataProvider({ children }) {
   const buildApiUrl = useCallback(() => {
     const params = new URLSearchParams();
     params.append('page', activePage + 1);
-    console.log(activePage);
     Object.entries(filters).forEach(([key, value]) => {
       if (value) {
         params.append(key, value);
@@ -58,23 +53,7 @@ export function DataProvider({ children }) {
   }, [activePage, filters]);
 
   useEffect(() => {
-    const url = buildApiUrl();
-    fetchData(url);
-    if (!isFirstRender) {
-      window.history.pushState(null, '', `/?${url.split('?')[1]}`);
-    } else {
-      setIsFirstRender(false);
-    }
-  }, [filters, activePage, buildApiUrl, isFirstRender]);
-
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const page = params.get('page');
-    const name = params.get('name');
-    const status = params.get('status');
-    const species = params.get('species');
-    const type = params.get('type');
-    const gender = params.get('gender');
+    const { page, name, status, species, type, gender } = queryParams;
 
     if (page) {
       setActivePage(Number(page) - 1);
@@ -89,23 +68,38 @@ export function DataProvider({ children }) {
         gender: gender || ''
       });
     }
-  }, []);
+  }, [queryParams]);
 
   useEffect(() => {
-    const handlePopState = () => {
-      const params = new URLSearchParams(window.location.search);
-      const page = params.get('page');
-      if (page) {
-        setActivePage(Number(page) - 1);
-      }
-    };
+    const url = buildApiUrl();
+    setApiURL(url);
+  }, [filters, activePage, buildApiUrl]);
 
-    window.addEventListener('popstate', handlePopState);
+  useEffect(() => {
+    fetchData(apiURL);
+  }, [apiURL]);
 
-    return () => {
-      window.removeEventListener('popstate', handlePopState);
-    };
-  }, []);
+  const onFilterChange = useCallback(
+    (name, value) => {
+      setFilters((prevFilters) => {
+        const newFilters = {
+          ...prevFilters,
+          [name]: value
+        };
+        updateQueryParams(newFilters);
+        return newFilters;
+      });
+    },
+    [updateQueryParams]
+  );
+
+  const onPageChange = useCallback(
+    (newPage) => {
+      setActivePage(newPage);
+      updateQueryParams({ page: newPage + 1 });
+    },
+    [updateQueryParams]
+  );
 
   const dataValue = useMemo(
     () => ({
@@ -118,15 +112,27 @@ export function DataProvider({ children }) {
       isError,
       info,
       filters,
-      setFilters
+      setFilters,
+      onFilterChange,
+      onPageChange
     }),
-    [activePage, apiURL, characters, isFetching, isError, info, filters]
+    [
+      activePage,
+      apiURL,
+      characters,
+      isFetching,
+      isError,
+      info,
+      filters,
+      onFilterChange,
+      onPageChange
+    ]
   );
 
   return (
     <DataContext.Provider value={dataValue}>{children}</DataContext.Provider>
   );
-}
+};
 
 const DataContext = createContext({});
 

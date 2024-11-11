@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import { useData } from '../providers';
-import { FilterField } from './InputField';
+import { FilterField } from './FilterField';
 
 export function FilterContainer() {
-  const { setFilters, setActivePage } = useData();
+  const { setActivePage, onFilterChange } = useData();
 
-  function handleFilterChange(name, value) {
-    setFilters((prev) => ({ ...prev, [name]: value }));
+  function handleFilterChange(value, name) {
+    onFilterChange(value, name);
     setActivePage(0);
   }
 
