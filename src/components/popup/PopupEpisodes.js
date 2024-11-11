@@ -5,7 +5,7 @@ import { Loader, Text } from '../common';
 
 const API_EPISODES_URL = 'https://rickandmortyapi.com/api/episode';
 
-export function PopupEpisodes({ episodes }) {
+export const PopupEpisodes = ({ episodes }) => {
   const [series, setSeries] = useState([]);
   const [isFetching, setIsFetching] = useState(true);
 
@@ -53,7 +53,7 @@ export function PopupEpisodes({ episodes }) {
       </StyledPopupEpisodes>
     </PopupEpisodesContainer>
   );
-}
+};
 
 const PopupEpisodesContainer = styled.div``;
 

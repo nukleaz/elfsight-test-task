@@ -97,7 +97,7 @@ export const DataProvider = ({ children }) => {
       setActivePage(newPage);
       updateQueryParams({ ...queryParams, page: newPage + 1 });
     },
-    [updateQueryParams]
+    [queryParams, updateQueryParams]
   );
 
   const dataValue = useMemo(

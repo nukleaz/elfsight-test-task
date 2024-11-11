@@ -3,11 +3,10 @@ import { useData } from '../providers';
 import { FilterField } from './FilterField';
 
 export const FilterContainer = () => {
-  const { onFilterChange, filters, setActivePage, activePage } = useData();
+  const { onFilterChange, filters } = useData();
 
   const handleFilterChange = (value, name) => {
     onFilterChange(value, name);
-    setActivePage(0);
   };
 
   return (

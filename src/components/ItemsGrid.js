@@ -9,16 +9,16 @@ const defaultPopupSettings = {
   content: {}
 };
 
-export function ItemsGrid() {
+export const ItemsGrid = () => {
   const { characters } = useData();
   const [popupSettings, setPopupSettings] = useState(defaultPopupSettings);
 
-  function cardOnClickHandler(props) {
+  const cardOnClickHandler = (props) => {
     setPopupSettings({
       visible: true,
       content: { ...props }
     });
-  }
+  };
 
   if (!characters.length) {
     return null;
@@ -37,7 +37,7 @@ export function ItemsGrid() {
       <Popup settings={popupSettings} setSettings={setPopupSettings} />
     </Container>
   );
-}
+};
 
 const Container = styled.div`
   width: 100%;

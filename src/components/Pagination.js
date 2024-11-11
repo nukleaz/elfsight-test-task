@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useData } from './providers';
 
-export function Pagination() {
+export const Pagination = () => {
   const [pages, setPages] = useState([]);
   const { apiURL, info, activePage, onPageChange } = useData();
 
@@ -62,7 +62,7 @@ export function Pagination() {
       )}
     </StyledPagination>
   );
-}
+};
 
 const StyledPagination = styled.div`
   width: 100%;
