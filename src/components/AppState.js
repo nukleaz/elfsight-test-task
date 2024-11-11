@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { Loader, Text } from './common';
 import { useData } from './providers';
 
-export function AppState() {
+export const AppState = () => {
   const { isFetching, isError } = useData();
 
   if (isError) {
@@ -22,7 +22,7 @@ export function AppState() {
   }
 
   return null;
-}
+};
 
 const AppStateContainer = styled.div`
   height: 100%;

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Text } from '../common';
 
-export function PopupInfo({ origin, location }) {
+export const PopupInfo = ({ origin, location }) => {
   return (
     <StyledPopupInfo>
       {origin?.name !== 'unknown' && (
@@ -19,11 +19,10 @@ export function PopupInfo({ origin, location }) {
       )}
     </StyledPopupInfo>
   );
-}
+};
 
 const StyledPopupInfo = styled.div`
   display: flex;
-  justify-content: space-between;
   margin-bottom: 40px;
   flex-direction: ${window.screen.width < 600 ? 'column' : 'row'};
 `;
@@ -32,7 +31,6 @@ const PopupOrigin = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 40px;
-  max-width: ${window.screen.width < 600 ? '100%' : '48%'};
 `;
 
 const PopupLastLocation = styled(PopupOrigin)``;

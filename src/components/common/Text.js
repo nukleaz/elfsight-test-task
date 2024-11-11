@@ -22,4 +22,12 @@ export const Text = ({
 const StyledText = styled.span`
   color: ${({ _color }) => _color};
   font-size: ${({ _fontSize }) => _fontSize};
+
+  @media (max-width: 600px) {
+    font-size: 14px;
+  }
+
+  @media (max-width: 400px) {
+    font-size: 12px;
+  }
 `;

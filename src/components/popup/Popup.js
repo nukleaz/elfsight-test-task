@@ -4,7 +4,7 @@ import { PopupEpisodes } from './PopupEpisodes';
 import { PopupHeader } from './PopupHeader';
 import { PopupInfo } from './PopupInfo';
 
-export function Popup({ settings: { visible, content = {} }, setSettings }) {
+export const Popup = ({ settings: { visible, content = {} }, setSettings }) => {
   const {
     name,
     gender,
@@ -17,7 +17,7 @@ export function Popup({ settings: { visible, content = {} }, setSettings }) {
     episode: episodes
   } = content;
 
-  function togglePopup(e) {
+  const togglePopup = (e) => {
     if (e.currentTarget !== e.target) {
       return;
     }
@@ -28,24 +28,24 @@ export function Popup({ settings: { visible, content = {} }, setSettings }) {
       ...prevState,
       visible: !prevState.visible
     }));
-  }
+  };
 
   useEffect(() => {
     document.body.style.overflow = visible ? 'hidden' : 'auto';
   }, [visible]);
 
   useEffect(() => {
-    function handleEscBtn(e) {
+    const handleEscBtn = (e) => {
       if (e.key === 'Escape' && visible) {
         setSettings((prevState) => ({
           ...prevState,
           visible: !prevState.visible
         }));
       }
-    }
+    };
     document.addEventListener('keydown', handleEscBtn);
 
-    return function () {
+    return () => {
       document.removeEventListener('keydown', handleEscBtn);
     };
   }, [visible, setSettings]);
@@ -70,7 +70,7 @@ export function Popup({ settings: { visible, content = {} }, setSettings }) {
       </StyledPopup>
     </PopupContainer>
   );
-}
+};
 
 const PopupContainer = styled.div`
   position: fixed;

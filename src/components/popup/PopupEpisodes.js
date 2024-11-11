@@ -5,7 +5,7 @@ import { Loader, Text } from '../common';
 
 const API_EPISODES_URL = 'https://rickandmortyapi.com/api/episode';
 
-export function PopupEpisodes({ episodes }) {
+export const PopupEpisodes = ({ episodes }) => {
   const [series, setSeries] = useState([]);
   const [isFetching, setIsFetching] = useState(true);
 
@@ -53,7 +53,7 @@ export function PopupEpisodes({ episodes }) {
       </StyledPopupEpisodes>
     </PopupEpisodesContainer>
   );
-}
+};
 
 const PopupEpisodesContainer = styled.div``;
 
@@ -90,6 +90,14 @@ const Episode = styled.p`
   display: grid;
   align-items: center;
   padding: 10px 0;
+
+  @media (max-width: 600px) {
+    font-size: 14px;
+  }
+
+  @media (max-width: 400px) {
+    font-size: 12px;
+  }
 `;
 
 const EpisodeMarking = styled.span`

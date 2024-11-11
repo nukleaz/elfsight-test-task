@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useData } from './providers';
 
-export function Pagination() {
+export const Pagination = () => {
   const [pages, setPages] = useState([]);
   const { apiURL, info, activePage, onPageChange } = useData();
 
@@ -62,7 +62,7 @@ export function Pagination() {
       )}
     </StyledPagination>
   );
-}
+};
 
 const StyledPagination = styled.div`
   width: 100%;
@@ -81,14 +81,6 @@ const Page = styled.span`
     color: #83bf46;
   }
 `;
-
-// const Container = styled.div`
-//   width: 100%;
-//   display: grid;
-//   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-//   justify-items: center;
-//   gap: 30px;
-// `;
 
 const Ellipsis = styled(Page)`
   cursor: default;

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { CardStatus, CardTitle } from '../card';
 
-export function PopupHeader({ image, name, gender, status, species, type }) {
+export const PopupHeader = ({ image, name, gender, status, species, type }) => {
   return (
     <PopupHeaderContainer>
       <PopupImage src={image?.replace('../', '')} alt={name} />
@@ -9,7 +9,7 @@ export function PopupHeader({ image, name, gender, status, species, type }) {
       <PopupStatus status={status} species={species} type={type} />
     </PopupHeaderContainer>
   );
-}
+};
 
 const PopupHeaderContainer = styled.div``;
 
